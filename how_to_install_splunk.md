@@ -26,7 +26,7 @@
 	- [Splunk Enterprise 9.3.0 Version](#splunk-enterprise-930-version)
 	- [Splunk Enterprise 9.1.6 Version](#splunk-enterprise-916-version)
 - [Change the ownership of under root /opt/splunk](#change-the-ownership-of-under-root-optsplunk)
-- [How to set $SPLUNK\_HOME to be equal to /opt/etc](#how-to-set-splunk_home-to-be-equal-to-optetc)
+- [How to set $SPLUNK\_HOME to be equal to /opt/splunk](#how-to-set-splunk_home-to-be-equal-to-optsplunk)
 	- [How to check if the export command has worked](#how-to-check-if-the-export-command-has-worked)
 	- [How to change ownership individually by specify the sub directory](#how-to-change-ownership-individually-by-specify-the-sub-directory)
 - [How to Install the plocate utility - It helps you to locate files easily](#how-to-install-the-plocate-utility---it-helps-you-to-locate-files-easily)
@@ -214,7 +214,7 @@ Explanation of Options
 - -R (Recursive): This option tells the command to change the ownership of not just the specified directory but also all files and subdirectories inside it. This is important when you want to apply the ownership change to everything within that directory.
 - -f (Force): This option suppresses most error messages and overrides certain restrictions. It can be used to avoid errors about files that do not exist or cannot be changed for some reason. For example, if there are files that you do not have permission to change, using -f would prevent those errors from being displayed.
 
-# How to set $SPLUNK_HOME to be equal to /opt/etc
+# How to set $SPLUNK_HOME to be equal to /opt/splunk
 ```
 export SPLUNK_HOME=/opt/splunk
 ```
