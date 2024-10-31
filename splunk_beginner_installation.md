@@ -52,7 +52,7 @@ wget -O splunk-9.3.0-51ccf43db5bd-Linux-x86_64.tgz "https://download.splunk.com/
 ./splunk version  
 ```
 
-# Change the ownership of /opt/splunk
+# Change the ownership of /opt/splunk at root user
 ```
 sudo chown -Rf splunk:splunk /opt/splunk
 ```
@@ -87,6 +87,11 @@ DefaultTasksMax=80%
 # How Enable bootstart (This will let your Splunk Web starts automatically without starting manually)
 ```
 ./splunk enable boot-start --accept-license -user splunk
+```
+
+# Change the ownership of /opt/splunk at root user after enable boot-start
+```
+sudo chown -Rf splunk:splunk /opt/splunk
 ```
 
 ## How to check splunk status at the bin directory
