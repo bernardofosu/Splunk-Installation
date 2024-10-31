@@ -199,8 +199,19 @@ wget -O splunk-9.3.0-51ccf43db5bd-Linux-x86_64.tgz "https://download.splunk.com/
 wget -O splunk-9.1.6-a28f08fac354-Linux-x86_64.tgz "https://download.splunk.com/products/splunk/releases/9.1.6/linux/splunk-9.1.6-a28f08fac354-Linux-x86_64.tgz"
 ```
 
-# Change the ownership of under root /opt/splunk
+## Splunk Universal Forwarder 9.3.0 Version
+```bash
+wget -O splunkforwarder-9.3.0-51ccf43db5bd-Linux-x86_64.tgz "https://download.splunk.com/products/universalforwarder/releases/9.3.0/linux/splunkforwarder-9.3.0-51ccf43db5bd-Linux-x86_64.tgz"
 ```
+
+## Splunk Universal Forwarder 9.1.6 Version
+```bash
+wget -O splunkforwarder-9.1.6-a28f08fac354-Linux-x86_64.tgz "https://download.splunk.com/products/universalforwarder/releases/9.1.6/linux/splunkforwarder-9.1.6-a28f08fac354-Linux-x86_64.tgz"
+```
+
+# Change the ownership of under root /opt/splunk (Switch to the splunk user)
+```bash
+su - splunk
 sudo chown -Rf splunk:splunk /opt/splunk
 ```
 Breakdown of the Command
