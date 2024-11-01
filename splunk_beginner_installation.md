@@ -10,9 +10,15 @@
 	e. Splunk Receiving Port - 9997
 ```
 
-# How to Update Package Managers
+# How to Update Package Managers on Ubuntu
 ```
 sudo apt update && sudo apt upgrade -y
+```
+
+
+# How to Update Package Managers AWS Linux or Centos
+```
+sudo yum update && sudo yum upgrade -y
 ```
 
 # How to Switch to Root User home directory
