@@ -62,7 +62,10 @@ wget -O splunk-9.3.0-51ccf43db5bd-Linux-x86_64.tgz "https://download.splunk.com/
 ```
 sudo chown -Rf splunk:splunk /opt/splunk
 ```
-
+# How to export varibles
+```
+export SPLUNK_HOME=/opt/splunk/
+```
 ## How to Save and close the file, then apply the changes:
 ```bash
 source ~/.bashrc
@@ -116,11 +119,45 @@ sudo chown -Rf splunk:splunk /opt/splunk
 ```
 /opt/splunk/bin/splunk start
 ```
-
+## How to restart splunk web app at the bin directory
+```
+./splunk restart 
+```
+```
+/opt/splunk/bin/splunk restart
+```
 ## How to stop splunk web app at the bin directory
 ```
 ./splunk stop 
 ```
+
+## How to the systemctl on splunk
+```
+sudo systemctl start splunk
+```
+```
+sudo systemctl restart splunk
+```
+```
+sudo systemctl status splunk
+```
+```
+sudo systemctl stop splunk
+```
+The command sudo systemctl can be executed from anywhere in the terminal, not just from a specific directory like /bin. Here's why:
+Key Points
+- **Systemd Commands:**
+systemctl is a command-line utility for managing systemd services. It is available globally on the system, meaning you can invoke it from any directory without needing to be in a specific location.
+
+- **Path Variable:**
+The command is part of the system's PATH environment variable, which allows you to run it without specifying the full path. The typical directories included in PATH (like /usr/bin, /bin, etc.) contain system binaries, including systemctl.
+
+- **Service Management:**
+systemctl is used to manage services across the entire system, so you do not need to be in a particular directory where the service files or executables are located to issue commands related to them.
+```bash
+sudo systemtcl start <service name>
+```
+NB: without the service name the systemtcl command will not work
 
 # How to Check Splunk Lincense
 ```
