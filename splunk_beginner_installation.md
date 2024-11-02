@@ -210,6 +210,35 @@ $SPLUNK_HOME/
 │   └── ...
 ```
 
+# <span style="color:orange">Warning 🟠 :warning:</span>
+Never change ownership in the root directory to any user because when the root loses its previllages to any user, user system is more likly corrupted.
+
+```bash
+Applications Users        cores        home         sbin         var
+Library      Volumes      dev          opt          tmp
+System       bin          etc          private      usr
+```
+## Using Long List (ll) command
+```css
+drwxrwxr-x+ 39 root  admin   1.2K Oct 29 18:23 Applications
+drwxr-xr-x  68 root  wheel   2.1K Aug 28 04:01 Library
+drwxr-xr-x@  8 root  wheel   256B Oct 30  2020 System
+drwxr-xr-x   7 root  admin   224B Sep 25 18:49 Users
+drwxr-xr-x   4 root  wheel   128B Oct 31 18:17 Volumes
+drwxr-xr-x@ 38 root  wheel   1.2K Jan  6  2024 bin
+drwxr-xr-x   2 root  wheel    64B Jun  5  2020 cores
+dr-xr-xr-x   3 root  wheel   4.3K Oct 31 16:21 dev
+lrwxr-xr-x@  1 root  admin    11B Jan  5  2024 etc -> private/etc
+lrwxr-xr-x   1 root  wheel    25B Oct 31 16:23 home -> /System/Volumes/Data/home
+drwxr-xr-x   3 root  wheel    96B Apr  1  2024 opt
+drwxr-xr-x   6 root  wheel   192B Jan  6  2024 private
+drwxr-xr-x@ 63 root  wheel   2.0K Jan  6  2024 sbin
+lrwxr-xr-x@  1 root  admin    11B Jan  5  2024 tmp -> private/tmp
+drwxr-xr-x@ 12 root  wheel   384B Jan  5  2024 usr
+lrwxr-xr-x@  1 root  admin    11B Jan  5  2024 var -> private/var
+```
+If you experience permision issues try to add your user to the sudo group (Ubuntu) or to the wheel (AWS Linux) and use sudo permissions. You can also switch to root user to execute some commands to avoid permission issues.
+
 # :sparkling\_heart: Support the project
 
 I open-source almost everything I can and try to reply to everyone needing help using these projects. Obviously,
