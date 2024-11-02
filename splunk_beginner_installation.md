@@ -92,10 +92,15 @@ DefaultLimitNOFILE=64000
 DefaultLimitNPROC=16000
 DefaultTasksMax=80%
 ```
+## What Each Configuration Does
+- **DefaultTasksMax=80%:** This sets the maximum number of tasks that can be created by the service, expressed as a percentage of the total available tasks on the system.
 
+- **DefaultLimitNOFILE=64000:** This sets the maximum number of open file descriptors for the service to 64,000. This is useful for applications that need to handle a large number of files simultaneously, such as database servers.
+
+- **DefaultLimitNPROC=16000:** This sets the maximum number of processes that the service can create to 16,000. This is relevant for services that may spawn many subprocesses.
 # How Enable bootstart (This will let your Splunk Web starts automatically without starting manually)
 ```
-./splunk enable boot-start --accept-license -user splunk
+sodo ./splunk enable boot-start --accept-license -user splunk
 ```
 
 # Change the ownership of /opt/splunk at root user after enable boot-start
@@ -136,14 +141,20 @@ sudo chown -Rf splunk:splunk /opt/splunk
 sudo systemctl start splunk
 ```
 ```
-sudo systemctl restart splunk
-```
-```
 sudo systemctl status splunk
 ```
 ```
 sudo systemctl stop splunk
 ```
+# Reload and Restart the Service:
+```
+sudo systemctl daemon-reload
+```
+```
+sudo systemctl restart splunk
+```
+After making any changes to this configuration file, you should reload the systemd daemon and restart the service for the changes to take effect:
+
 The command sudo systemctl can be executed from anywhere in the terminal, not just from a specific directory like /bin. Here's why:
 Key Points
 - **Systemd Commands:**
