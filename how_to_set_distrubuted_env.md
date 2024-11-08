@@ -14,7 +14,9 @@
 ## How to set up the Deployment Server
 NB: There must be a deployment app with a deploymentclient.conf file in its local directory under the /opt/splunk/etc/apps directory to establish the initial communication.
 
-NB: The app (all_deploymentclient_app) will be place in the deployment-apps dirctory with the same name configuration for the clients server only at their apps directory to establish the initial communication. but you will place the samething on the deployment_apps dirctory on the deployment server.
+NB: The app (all_deploymentclient_app) will be place in the deployment-apps dirctory with the same name and configuration for the clients only at their apps directory to establish the initial communication. but you will place the samething on the deployment server at deployment_apps dirctory for future changes such as IP Address of the Deployment Server.
+
+NB: It very important to have to same name for the app on all clients and Deployment server deployment apps directory so that any future changes will only be made on the Desployment Server Deployment Apps Directoy and Clients will download it to update their deploymentclient.conf configuration.
 
 ### How to create an app (creating a directory)
 ```bash
