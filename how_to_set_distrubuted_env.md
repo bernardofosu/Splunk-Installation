@@ -1,6 +1,59 @@
 
 # SPLUNK DISTRIBUTED ENVIRONMENT TOPOLOGY
 
+- [SPLUNK DISTRIBUTED ENVIRONMENT TOPOLOGY](#splunk-distributed-environment-topology)
+- [Colocate Management Components](#colocate-management-components)
+  - [Demo Time – Setting up a Splunk distributed environment](#demo-time--setting-up-a-splunk-distributed-environment)
+    - [Configure these components](#configure-these-components)
+  - [How to set up the Deployment Server](#how-to-set-up-the-deployment-server)
+    - [How to create an app (creating a directory)](#how-to-create-an-app-creating-a-directory)
+    - [Create the deploymentclient.conf in all\_deploymentclient\_app directory](#create-the-deploymentclientconf-in-all_deploymentclient_app-directory)
+      - [Splunk Enterprise](#splunk-enterprise)
+      - [Splunk Universal Forwarders](#splunk-universal-forwarders)
+  - [Why the deploymentclient.conf in not placed in the system/local](#why-the-deploymentclientconf-in-not-placed-in-the-systemlocal)
+  - [How to establish the communication](#how-to-establish-the-communication)
+  - [Alternatively you can run this command at $SPLUNK\_HOME/bin](#alternatively-you-can-run-this-command-at-splunk_homebin)
+    - [When you want to alter the default settings under \[deployment-client\] stanza](#when-you-want-to-alter-the-default-settings-under-deployment-client-stanza)
+    - [Each part has a purpose:](#each-part-has-a-purpose)
+- [How to Install TA 's on the front and back end](#how-to-install-ta-s-on-the-front-and-back-end)
+    - [Since we want to deploy them to the clients, We have to move the apps from the apps directory to the deployment-apps directory on the Deployment Server back end. The Deployment Server does not own those apps but its just a repository for apps ready for deployment to clients](#since-we-want-to-deploy-them-to-the-clients-we-have-to-move-the-apps-from-the-apps-directory-to-the-deployment-apps-directory-on-the-deployment-server-back-end-the-deployment-server-does-not-own-those-apps-but-its-just-a-repository-for-apps-ready-for-deployment-to-clients)
+    - [The path where you move the apps from to the deployment-apps](#the-path-where-you-move-the-apps-from-to-the-deployment-apps)
+  - [You will move it to the deployment-apps directory](#you-will-move-it-to-the-deployment-apps-directory)
+- [Disabling the DS/MC/LM and the search Head from indexing logs](#disabling-the-dsmclm-and-the-search-head-from-indexing-logs)
+  - [Private IP DNS name (IPv4 only)](#private-ip-dns-name-ipv4-only)
+    - [You create a load balance for your indexers, simply, the data that goes into splunk indexes they have some amout of equal recieving utilisation](#you-create-a-load-balance-for-your-indexers-simply-the-data-that-goes-into-splunk-indexes-they-have-some-amout-of-equal-recieving-utilisation)
+  - [Private IPv4 addresses](#private-ipv4-addresses)
+  - [Private IPv4 addresses](#private-ipv4-addresses-1)
+    - [The Move Command (You have to be in the Apps Directory for the command below to work)](#the-move-command-you-have-to-be-in-the-apps-directory-for-the-command-below-to-work)
+- [How to enable the receiving port on the indexers (9997)](#how-to-enable-the-receiving-port-on-the-indexers-9997)
+  - [inputs.conf](#inputsconf)
+  - [Doing it at the front end (Splunk Web)](#doing-it-at-the-front-end-splunk-web)
+- [Creatin an App to send output configurations to all forwarders](#creatin-an-app-to-send-output-configurations-to-all-forwarders)
+  - [Example of the path to the Directory](#example-of-the-path-to-the-directory)
+  - [Change to splunk bin directory](#change-to-splunk-bin-directory)
+- [How to create distributed search on the Deployment Server to help give the full instances (Not Universal Forwarders) roles (i.e Indexers, Search Head)](#how-to-create-distributed-search-on-the-deployment-server-to-help-give-the-full-instances-not-universal-forwarders-roles-ie-indexers-search-head)
+- [How to Setup the Monitoring Console for the Full Splunk Instances](#how-to-setup-the-monitoring-console-for-the-full-splunk-instances)
+- [How to Setup the Monitoring Console for the Universal Forwarder](#how-to-setup-the-monitoring-console-for-the-universal-forwarder)
+- [How to set a new search peer on the Search Head for its to communicate with the indexers to get logs](#how-to-set-a-new-search-peer-on-the-search-head-for-its-to-communicate-with-the-indexers-to-get-logs)
+- [How Create Indexes on the deployment server for the the Indexers to index logs](#how-create-indexes-on-the-deployment-server-for-the-the-indexers-to-index-logs)
+  - [Put this in the nano indexes.conf](#put-this-in-the-nano-indexesconf)
+  - [Example of the path to the Directory](#example-of-the-path-to-the-directory-1)
+- [Creating inputs.conf for data monitoring for the apps at the deployment-apps](#creating-inputsconf-for-data-monitoring-for-the-apps-at-the-deployment-apps)
+  - [Splunk\_TA\_windows](#splunk_ta_windows)
+      - [Example of the logs](#example-of-the-logs)
+  - [Creating inputs.conf for data monitoring for the apps at the deployment-apps](#creating-inputsconf-for-data-monitoring-for-the-apps-at-the-deployment-apps-1)
+    - [Splunk\_TA\_nix](#splunk_ta_nix)
+      - [Example of the logs](#example-of-the-logs-1)
+- [Useful Links](#useful-links)
+- [Some Precedence that are very userful for setting up configuration files.](#some-precedence-that-are-very-userful-for-setting-up-configuration-files)
+- [Global Precedence Order](#global-precedence-order)
+  - [User-Level (user context):](#user-level-user-context)
+  - [Summary of App-Specific Precedence Order](#summary-of-app-specific-precedence-order)
+- [Search Time Precendence](#search-time-precendence)
+  - [Summary for Search Context Precedence Order](#summary-for-search-context-precedence-order)
+- [:sparkling\_heart: Support the project](#sparkling_heart-support-the-project)
+
+
 # Colocate Management Components
 ![](distributed_env.png "Colocate Management Components")
 ## Demo Time – Setting up a Splunk distributed environment 
@@ -14,7 +67,9 @@
 ## How to set up the Deployment Server
 NB: There must be a deployment app with a deploymentclient.conf file in its local directory under the /opt/splunk/etc/apps directory to establish the initial communication.
 
-NB: The app (all_deploymentclient_app) will be place in the deployment-apps dirctory with the same name configuration for the clients server only at their apps directory to establish the initial communication. but you will place the samething on the deployment_apps dirctory on the deployment server.
+NB: The app (all_deploymentclient_app) will be place in the deployment-apps dirctory with the same name and configuration for the clients only at their apps directory to establish the initial communication. but you will place the samething on the deployment server at deployment_apps dirctory for future changes such as IP Address of the Deployment Server.
+
+NB: It very important to have to same name for the app on all clients and Deployment server deployment apps directory so that any future changes will only be made on the Desployment Server Deployment Apps Directoy and Clients will download it to update their deploymentclient.conf configuration.
 
 ### How to create an app (creating a directory)
 ```bash
