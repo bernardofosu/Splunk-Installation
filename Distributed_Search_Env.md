@@ -1,5 +1,21 @@
 # How to Create a Distributed Environment
 
+- [How to Create a Distributed Environment](#how-to-create-a-distributed-environment)
+  - [Distributed Search](#distributed-search)
+  - [Distributed deployment provides the ability to:](#distributed-deployment-provides-the-ability-to)
+- [SCALING SPLUNK ENTERPRISE](#scaling-splunk-enterprise)
+- [SPLUNK COMPONENTS](#splunk-components)
+    - [There are several types of Splunk Enterprise components.](#there-are-several-types-of-splunk-enterprise-components)
+      - [They fall into two broad categories:](#they-fall-into-two-broad-categories)
+  - [TYPES OF PROCESSING COMPONENTS](#types-of-processing-components)
+  - [MANAGEMENT COMPONENTS](#management-components)
+- [Components that help to manage your deployment](#components-that-help-to-manage-your-deployment)
+  - [Types of management components](#types-of-management-components)
+- [Colocate Management Components](#colocate-management-components)
+  - [splunk@ip-172-31-88-152:/opt/splunk/etc/deployment-apps$](#splunkip-172-31-88-152optsplunketcdeployment-apps)
+  - [The deployment server systems local](#the-deployment-server-systems-local)
+
+
 ## Distributed Search 
 >To support larger environments, however, where data originates on many machines and where many users need to search the data, you can scale your deployment by distributing Splunk Enterprise instances across multiple machines. When you do this, you configure the instances so that each instance performs a specialized task. For example, one or more instances might index the data, while another instance manages searches across the data.
 

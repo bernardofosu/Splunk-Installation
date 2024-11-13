@@ -25,7 +25,9 @@
 - [How to Install Splunk Enterprise](#how-to-install-splunk-enterprise)
 	- [Splunk Enterprise 9.3.0 Version](#splunk-enterprise-930-version)
 	- [Splunk Enterprise 9.1.6 Version](#splunk-enterprise-916-version)
-- [Change the ownership of under root /opt/splunk](#change-the-ownership-of-under-root-optsplunk)
+	- [Splunk Universal Forwarder 9.3.0 Version](#splunk-universal-forwarder-930-version)
+	- [Splunk Universal Forwarder 9.1.6 Version](#splunk-universal-forwarder-916-version)
+- [Change the ownership of under root /opt/splunk (Switch to the splunk user)](#change-the-ownership-of-under-root-optsplunk-switch-to-the-splunk-user)
 - [How to set $SPLUNK\_HOME to be equal to /opt/splunk](#how-to-set-splunk_home-to-be-equal-to-optsplunk)
 	- [How to check if the export command has worked](#how-to-check-if-the-export-command-has-worked)
 	- [How to change ownership individually by specify the sub directory](#how-to-change-ownership-individually-by-specify-the-sub-directory)
@@ -34,20 +36,9 @@
 - [How to find the location of system.conf](#how-to-find-the-location-of-systemconf)
 	- [You can use this path](#you-can-use-this-path)
 - [How to increase ulimit -- example values in system.conf: - Uncomment and Change these lines](#how-to-increase-ulimit----example-values-in-systemconf---uncomment-and-change-these-lines)
-- [How to turn off THP (THP means transparent huge pages)](#how-to-turn-off-thp-thp-means-transparent-huge-pages)
-- [Navigate or change directory to bin directory to run the commands for the binaries or the executables](#navigate-or-change-directory-to-bin-directory-to-run-the-commands-for-the-binaries-or-the-executables)
+	- [What Each Configuration Does](#what-each-configuration-does)
 - [How Enable bootstart (This will let your Splunk Web starts automatically without starting manually)](#how-enable-bootstart-this-will-let-your-splunk-web-starts-automatically-without-starting-manually)
-	- [How to check splunk status at the bin directory](#how-to-check-splunk-status-at-the-bin-directory)
-	- [How to check splunk status using absolute path](#how-to-check-splunk-status-using-absolute-path)
-	- [How to start splunk web app at the bin directory](#how-to-start-splunk-web-app-at-the-bin-directory)
-	- [How to stop splunk web app at the bin directory](#how-to-stop-splunk-web-app-at-the-bin-directory)
-- [How to change ownership of /opt/splunk](#how-to-change-ownership-of-optsplunk)
-- [How to Check Splunk Version](#how-to-check-splunk-version)
-- [How to Check Splunk Lincense](#how-to-check-splunk-lincense)
-- [How to Check Splunk Web Port (i.e 8000)](#how-to-check-splunk-web-port-ie-8000)
-- [How to locate user modified Configuration files](#how-to-locate-user-modified-configuration-files)
-- [How to locate system default Configuration files](#how-to-locate-system-default-configuration-files)
-- [The path to system and app Configuration files](#the-path-to-system-and-app-configuration-files)
+	- [ls root](#ls-root)
 - [If you get get server error and cannot login to the splunk web will run this security check command.](#if-you-get-get-server-error-and-cannot-login-to-the-splunk-web-will-run-this-security-check-command)
 	- [After the above command then you restart splunk enterprise](#after-the-above-command-then-you-restart-splunk-enterprise)
 - [How to Change Splunk Web Admin Password](#how-to-change-splunk-web-admin-password)
@@ -269,7 +260,14 @@ DefaultLimitNOFILE=64000
 DefaultLimitNPROC=16000
 DefaultTasksMax=80%
 ```
+## What Each Configuration Does
+- **DefaultTasksMax=80%:** This sets the maximum number of tasks that can be created by the service, expressed as a percentage of the total available tasks on the system.
 
+- **DefaultLimitNOFILE=64000:** This sets the maximum number of open file descriptors for the service to 64,000. This is useful for applications that need to handle a large number of files simultaneously, such as database servers.
+
+- **DefaultLimitNPROC=16000:** This sets the maximum number of processes that the service can create to 16,000. This is relevant for services that may spawn many subprocesses.
+# How Enable bootstart (This will let your Splunk Web starts automatically without starting manually)
+```
 # How to turn off THP (THP means transparent huge pages)
 ```
 echo 'never' > /sys/kernel/mm/transparent_hugepage/enabled
@@ -285,7 +283,7 @@ Why changing to the bin folder to run the commands bellow
 
 # How Enable bootstart (This will let your Splunk Web starts automatically without starting manually)
 ```
-./splunk enable boot-start --accept-license -user splunk
+sudo ./splunk enable boot-start --accept-license -user splunk
 ```
 
 ## How to check splunk status at the bin directory
@@ -358,6 +356,34 @@ $SPLUNK_HOME/
 │   │   │   └── outputs.conf
 │   │   └── README
 │   └── ...
+```
+
+## ls root
+```css
+lrwxrwxrwx   1 root root     7 Apr 22  2024 bin -> usr/bin/
+drwxr-xr-x   2 root root  4096 Feb 26  2024 bin.usr-is-merged/
+drwxr-xr-x   5 root root  4096 Oct 31 08:35 boot/
+drwxr-xr-x  16 root root  3240 Nov  2 19:12 dev/
+drwxr-xr-x 108 root root  4096 Oct 31 08:35 etc/
+drwxr-xr-x   4 root root  4096 Oct 31 01:13 home/
+lrwxrwxrwx   1 root root     7 Apr 22  2024 lib -> usr/lib/
+drwxr-xr-x   2 root root  4096 Apr  8  2024 lib.usr-is-merged/
+lrwxrwxrwx   1 root root     9 Apr 22  2024 lib64 -> usr/lib64/
+drwx------   2 root root 16384 Sep 27 08:38 lost+found/
+drwxr-xr-x   2 root root  4096 Sep 27 08:36 media/
+drwxr-xr-x   2 root root  4096 Sep 27 08:36 mnt/
+drwxr-xr-x   3 root root  4096 Oct 31 01:17 opt/
+dr-xr-xr-x 201 root root     0 Nov  2 19:12 proc/
+drwx------   5 root root  4096 Oct 31 01:47 root/
+drwxr-xr-x  28 root root   900 Nov  2 19:17 run/
+lrwxrwxrwx   1 root root     8 Apr 22  2024 sbin -> usr/sbin/
+drwxr-xr-x   2 root root  4096 Mar 31  2024 sbin.usr-is-merged/
+drwxr-xr-x   7 root root  4096 Nov  2 19:17 snap/
+drwxr-xr-x   2 root root  4096 Sep 27 08:36 srv/
+dr-xr-xr-x  13 root root     0 Nov  2 19:12 sys/
+drwxrwxrwt  12 root root  4096 Nov  2 19:19 tmp/
+drwxr-xr-x  12 root root  4096 Sep 27 08:36 usr/
+drwxr-xr-x  13 root root  4096 Oct 31 00:55 var/
 ```
 # If you get get server error and cannot login to the splunk web will run this security check command.
 ```
