@@ -165,3 +165,7 @@ conda install numpy pandas matplotlib
 ```
 This will install numpy, pandas, and matplotlib from the default channels.
 
+
+# How to create Python Environment
+
+

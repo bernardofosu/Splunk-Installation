@@ -203,3 +203,84 @@ conda install numpy pandas matplotlib
 ```
 This will install numpy, pandas, and matplotlib from the default channels.
 
+If the command prompt is working but powershell is not working after the above configuration
+
+```bash
+File C:\Users\PLANNING OFFICE\Documents\WindowsPowerShell\profile.ps1 cannot be loaded because running scripts is disabled on this system. For more information,
+ see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:0 char:0
+```
+
+```bash
+conda : The term 'conda' is not recognized as the name of a cmdlet, function, script file, or operable 
+program. Check the spelling of the name, or if a path was included, verify that the path is correct     
+and try again.
+At line:1 char:1
++ conda --version
++ ~~~~~
+    + CategoryInfo          : ObjectNotFound: (conda:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+```
+
+# How to solve the powershell error
+> This error indicates that PowerShell’s execution policy is preventing the profile script from running. By default, PowerShell restricts the running of scripts for security reasons. You can enable script execution to allow the Conda initialization to run by changing the execution policy.
+
+## Here’s how to do it:
+### Open PowerShell as Administrator
+Press Win + S, type PowerShell, right-click on Windows PowerShell, and select Run as Administrator.
+
+### Set the Execution Policy
+Run the following command to allow scripts to run in PowerShell:
+
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+When prompted, type Y to confirm or click on Yes to all to confirm and restart powershell
+
+### Explanation:
+**RemoteSigned** allows scripts created on your computer to run, but scripts downloaded from the internet must be signed by a trusted publisher.
+**-Scope** CurrentUser applies this setting only to your user account, so it won’t affect other users or system-wide security.
+1. Restart PowerShell
+Close the current PowerShell window and open a new one.
+2. Verify Conda
+
+After restarting PowerShell, run:
+```powershell
+conda --version
+```
+## How to make it work with git bash
+To make Conda work in Git Bash, you need to ensure that Git Bash can locate Conda in its PATH and also set up the environment correctly. Here’s how to configure it:
+
+# Add Conda to Git Bash PATH
+Open Git Bash.
+Open or create a .bashrc file in your home directory by running:
+```bash
+nano ~/.bashrc
+```
+Add the following lines to the end of the .bashrc file, replacing PLANNING OFFICE with your actual path:
+
+```bash
+# Add Miniconda to PATH
+export PATH="/c/Users/PLANNING OFFICE/miniconda3:/c/Users/PLANNING OFFICE/miniconda3/Scripts:/c/Users/PLANNING OFFICE/miniconda3/Library/bin:$PATH"
+```
+NB: We can locate this file manually or copy the file path and AI can help us get the full path.
+
+Save the file by pressing CTRL + X, then Y, and Enter.
+
+## Source the .bashrc file to apply the changes:
+```bash
+source ~/.bashrc
+```
+## Initialize Conda for Git Bash
+After updating the PATH, initialize Conda specifically for Git Bash:
+Run the following command in Git Bash:
+```bash
+conda init bash
+```
+Close and reopen Git Bash to reload the settings.
+
+## Test Conda
+Once you reopen Git Bash, test if Conda is working by running:
+```bash
+conda --version
+``
