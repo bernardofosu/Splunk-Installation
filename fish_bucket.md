@@ -9,11 +9,20 @@ Inside the fishbucket directory, you will find a subdirectory named splunk_priva
 
 The fishbucket directory contains both;
 - 1. Seek Pointers  
-- 2. Cyclic Redundancy Checkers (CRCs) 
+- 2. Cyclic Redundancy Checkers (CRCs)
 
-Which keeps track of how much of your file has been indexed into Splunk.
+### Seek Pointers
+- **What it is:•• A seek pointer is a marker that tells Splunk where it left off in a file when it last indexed data.
+- Purpose: It helps Splunk efficiently resume reading a file by skipping over already-processed data instead of starting from the beginning. Which keeps track of how much of your file has been indexed into Splunk.
+- How it works: When Splunk reopens a file, it uses the seek pointer to jump directly to the last read position.
+The fishbucket is like the memory of Splunk to know whether a log has been ingested already.
 
-The fishbucket is like the memory of Splunk to know whether a log has been ingested already. 
+### Cyclic Redundancy Checkers (CRCs)
+- What it is: CRC is a hash value or checksum generated for a file's content to uniquely identify it.
+- Purpose: It ensures Splunk can distinguish between different files or detect when a file has changed (e.g., truncated or rotated logs).
+How it works:
+- Splunk generates a CRC for the initial few kilobytes of a file to verify its identity.
+- If the CRC of a file does not match the recorded value, Splunk treats it as a new file.
 
 To prevent re-indexing a previously-read file Splunk runs a cyclic redundancy check against first and last 256 bytes of a file.
 
