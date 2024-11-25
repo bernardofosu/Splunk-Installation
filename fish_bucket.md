@@ -1,5 +1,11 @@
 # FISH BUCKET
 Splunk uses the fishbucket to track files that are being indexed into Splunk. 
+## Which path can you find the fishbucket
+```bash
+$SPLUNK_HOME/var/lib/splunk/fishbucket
+```
+## Key Contents:
+Inside the fishbucket directory, you will find a subdirectory named splunk_private_db
 
 The fishbucket directory contains both;
 - 1. Seek Pointers  
