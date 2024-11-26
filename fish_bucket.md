@@ -12,7 +12,7 @@ The fishbucket directory contains both;
 - 2. Cyclic Redundancy Checkers (CRCs)
 
 ### Seek Pointers
-- **What it is:•• A seek pointer is a marker that tells Splunk where it left off in a file when it last indexed data.
+- **What it is: A seek pointer** is a marker that tells Splunk where it left off in a file when it last indexed data.
 - Purpose: It helps Splunk efficiently resume reading a file by skipping over already-processed data instead of starting from the beginning. Which keeps track of how much of your file has been indexed into Splunk.
 - How it works: When Splunk reopens a file, it uses the seek pointer to jump directly to the last read position.
 The fishbucket is like the memory of Splunk to know whether a log has been ingested already.
