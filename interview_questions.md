@@ -2,10 +2,10 @@
 ### 1. When you want to parse data and you are finding it dificult, where will you go or what website will you website to find app developed by others without starting from scratch
 **Answer: Splunk base**
 
-### 2. When onboard data and everything looks good, the indexing port open, you have configured inputs.conf. what is the best tool for troubleshoot to find the problem
+### 2. When you onboard data and everything looks good, the indexing port open, you have configured the inputs.conf. whhat tool is the best for troubleshoot to find the problem
 **Answer: Btool**
 
-This might be that, there double inputs.conf, one in apps local, system local. This will be conflicting and splunk will find it difficult which one to use, and it will may not use any of them. Deleting one probably the one at systems local and logs will start coming
+This might be that, there double inputs.conf, one in apps local and other in the system local. This will be conflicting and splunk will find it difficult which one to use, and it will may not use any of them, which will lead to the data not been ingested to splunk. Deleting one probably the one at systems local and logs will start coming
 
 ### 3. What stage of the data ingest flow is when incoming raw data stream is breakdown into individual events based on line breaks (linebreaker).
 **Answer: Parsing Pipeline**
@@ -16,8 +16,8 @@ This might be that, there double inputs.conf, one in apps local, system local. T
 ### 5. What stage of the data ingest flow is when multiple small chunks of data are combined into larger aggregated events to optimize processing (aggregator).
 **Answer: Merging Pipeline**
 
-### 6. What stage of the data ingest flow is when regex patterns applies to the data
- 
+### 6. What stage of the data ingest flow (Indexing Pipeleine) is when regex patterns applies to the data
+**Typing Pipeline**
 
 ### 7. What stage of the data ingest flow is when data is finalizes, processed and prepares for indexing.
 **Answer: Index Pipeline**
@@ -63,13 +63,78 @@ API Calls using HTTP Event Collector (HEC) is a feature in splunk that allow you
 8089, it can be use for distributed search environment,
 
 ### 18. What is the default port to communicate with deployment server
+8089
 
 ### 19. what is the default port for creating search peers
+8089
 
 ### 20. What is the path splunk store indexes
 /opt/splunk/var/lib/splunk
 
-### 21. 
+### 21. What is the usage of KV store
+
+### 22. How do you upgrade splunk enterprise on your Linux Server
+I will first use the tar command to tar the SPLUNK_HOME/etc or /opt/splunk/etc and copy as a backup. Then i will download the new splunk and install on my linux server
+
+### 23. As a splunk engineer what will do if your splunk server is not running
+i will move to the bin directory and use ./splunk status to check the status of my splunk server, if its not running running, i will use ./splunk start to start it. if its already running, i will check my splunk server security groups or firewalls to see if the splunk web default port 8000 is open
+
+### 24. What conf file will use to monitor syslogs
+inputs.conf
+
+### 25. If your is writting all the sys logs into a file, how do you separate the logs you dont need from the one you need
+NB: if you disable or stop monitoring the file at inputs.conf, it will stop monitoring all the logs, so what you will do is to use the props.conf and transform.conf to separate what you need from what you dont need 
+
+### 26. In what instance will you choose a universal forwarder over a heavy forworder.
+When i want to only forward data from my sever generating the logs to my splunk instance or my indexer withour parsing the data, its more preferable to use the light weight version instead of the heavy forworder
+
+### 27. As Splunk Engineer, if your splunk server slow, how do you troubleshoot it
+Check System Resources: Verify that the server has sufficient CPU, memory and disk space 
+
+Monitor Splunk Logs: Check the splunk logs for errors or warnings that might indicate the cause of the slowdown
+
+### 28. What linux command will use to verify CPU, memory and disk space 
+
+### 29. Which Splunk components typically reside on the machines where data originates? Ans. Forwarder
+### 30. Name an important dependency to initiate DB Connecttaskserver. 
+Ans. Java Runtime Environment (JRE)
+
+### 31. What is the default RDP TCP port. 
+Ans. 3389
+### What are the types of search modes in Splunk? 
+Ans. Fast, Smart, and Verbose
+### 32. Name some configurationfiles relating to Splunk platform and their Functions. 
+Ans. **inputs.conf** – monitoring/ingesting data into splunk and enable listening
+
+**outputs.conf** – instruction for the location where data is sent Props.conf – data parsing
+
+**server.conf** – details/information about the server
+**indexes.conf** – for indexing data and data retention
+
+### 33. How many types of Splunk forwarders are there? Ans. 2 (UF and HF)
+
+### 34. List Splunk components.
+Ans. Forwarder, indexer, Seach Head
+1. NamesomedifferencesbetweentheUFandHF. Ans. UF without GUI while HF with GUI
+UF without parsing/indexing capabilities while HF parsing and indexing capabilities
+1. What is the use of a deployment server in Splunk administration?
+Ans. The deployment server is the tool for distributing configurations, apps, and content updates to groups of Splunk Enterprise instances.
+1.  Name 3 Splunk management components.
+Ans. License manager, Deployment Server, Cluster manager, Deployer, and Monitoring Console
+1.  Name some Splunk default ports Ans.
+8000 – Web port
+8089 – Management port 9997 – Receiving port 8088 – HEC port
+8091 – KV Store port
+1.  What is the command to check disk space in Linux Ans. df -h
+2.  The location/path of Splunk internal logs from the CLI/backend Ans. SPLUNK_HOME$/splunk/var/log/splunk
+3.  What is the btool command used for
+Ans. btool command is used to troubleshoot configuration files.
+1.  Name 3 types of Splunk License Ans. Enterprise, Trial, Free
+2.  What is the fish bucket
+Ans. A subdirectory where Splunk software tracks how far into a file indexing has progressed, to enable the software to detect when data has been added to the file and resume indexing. The fishbucket subdirectory contains seek pointers and CRCs for indexed files.
+
+
+
 
 ### Splunk Ports
 | **Port**             | **Component**                     | **Default/Convention**       | **Description**                                                                                                         |
