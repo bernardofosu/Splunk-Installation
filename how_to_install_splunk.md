@@ -79,6 +79,25 @@ NB: Use lower case letters for naming variables in this bootcamp.
 ```
 adduser splunk
 ```
+# Create a Splunk User (using adduser)
+## echo "Creating Splunk user..."
+```bash
+sudo adduser --disabled-password --gecos "" splunk
+```
+### Explanation:
+```bash
+sudo adduser --disabled-password --gecos "" splunk
+```
+- **--disabled-password:** This option prevents the adduser command from prompting for a password.
+- **--gecos** "": Skips the interactive prompts for full name and other details.
+- This creates the splunk user without requiring any user input.
+  
+# Step 4a: Set a password for the Splunk user (automatically)
+echo "Setting password for Splunk user..."
+```bash
+echo "splunk:splunkpassword" | sudo chpasswd  # Replace "splunkpassword" with your desired password
+```
+Automatically sets the password for the splunk user. Replace "splunkpassword" with the password you wish to set.
 
 ## How to Create/Update User Password on the Linux System
 ```
