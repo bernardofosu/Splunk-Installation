@@ -304,6 +304,11 @@ Why changing to the bin folder to run the commands bellow
 ```
 sudo ./splunk enable boot-start --accept-license -user splunk
 ```
+# How to check if enable bootstart was succesful
+```bash
+ sudo systemctl is-enabled splunk
+sudo ./splunk display boot-start
+```
 
 ## How to check splunk status at the bin directory
 ```
